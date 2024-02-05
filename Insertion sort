@@ -1,0 +1,28 @@
+#include <stdio.h>
+
+void insertionSort(int A[20], int n)
+{
+    int x,i,j;
+    for(i=1;i<n;i++)
+    {
+        j=i-1;
+        x=A[i];
+        while(j>-1 && A[j]>x )
+        {
+            A[j+1]=A[j];
+            j--;
+        }
+       A[j+1]=x;
+    } 
+ }
+
+void main()
+{
+    int A[20]={2,4,3,8,6,1};
+    insertionSort(A,6);
+    int k;
+    for(k=0;k<6;k++)
+    {
+        printf("%d ", A[k]);
+    }
+}
