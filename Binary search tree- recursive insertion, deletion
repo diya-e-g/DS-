@@ -83,6 +83,33 @@ struct Node * Rinsert(struct Node *p,int key)
     return p;
 }
 
+int Height(struct Node *p)
+{
+    int x,y;
+    if(p==NULL)
+    return 0;
+    x=Height(p->lchild);
+    y=Height(p->rchild);
+    return x>y?x+1:y+1;
+    
+}
+
+struct Node *InPredeccessor(struct Node *p)
+{
+    while(p && p->rchild!=NULL)
+    p= p->rchild;
+    return p;
+}
+
+struct Node *InSuccessor(struct Node *p)
+{
+    while(p && p->lchild!=NULL)
+    p= p->lchild;
+    return p;
+}
+
+
+
 struct Node *Delete (struct Node *p,int key)
 {
     struct Node *q;
@@ -91,9 +118,11 @@ struct Node *Delete (struct Node *p,int key)
     if(p->rchild==NULL && p->lchild==NULL)
     {
         if(p==root)
-            root=NULL;
+            {
+                root=NULL;
             free(p);
             return NULL;
+            }
         
     }
     if(key<p->data)
@@ -102,17 +131,21 @@ struct Node *Delete (struct Node *p,int key)
     p->rchild=Delete(p->rchild,key);
     else
     {
-        if(Height(p->lchild>p->rchild));
-       q=InPredeccessor(p->lchild);
+        if(Height(p->lchild) > Height(p->rchild))
+      {
+          q=InPredeccessor(p->lchild);
        p->data=q->data;
        p->lchild=Delete(p->lchild,key);
+      }
        else
-       q=InSuccessor(p->rchild);
+      {
+          q=InSuccessor(p->rchild);
        p->data=q->data;
        p->rchild=Delete(p->rchild,key);
       
-       
+      }
     }
+    return p;
 }
 
 
@@ -131,6 +164,9 @@ int main()
     Rinsert(root,20);
     insert(14);
     insert(8);
+    Delete(root, 20);
+    
+    
 
     printf("Inorder Traversal: ");
     inorder(root);
@@ -143,15 +179,3 @@ int main()
 
     return 0;
 }
-
-
-
-
-
-
-
-
-
-
-
-
