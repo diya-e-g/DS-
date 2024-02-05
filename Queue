@@ -42,6 +42,7 @@ int dequeue(struct Queue *q)
         q->front++;
         x=q->Q[q->front];
     }
+return x;
 }
 
 void display(struct Queue q)
