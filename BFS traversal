@@ -1,0 +1,93 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Queue
+{
+    int size;
+    int front;
+    int rear;
+    int *Q;
+};
+
+void create(struct Queue *q, int size)
+{
+    q->size=size;
+    q->front=q->rear=-1;
+    q->Q=(int*)malloc(q->size*sizeof(int));
+}
+
+void enqueue(struct Queue *q, int data)
+{
+    if(q->rear==q->size-1)
+    {
+        printf("Queue is full");
+    }
+    else
+    {
+        q->rear++;
+        q->Q[q->rear]=data;
+    }
+}
+
+
+int dequeue(struct Queue *q)
+{
+    int x=-1;
+    if(q->rear==q->front)
+    {
+        printf("Queue is empty");
+    }
+    else
+    {
+        q->front++;
+        x=q->Q[q->front];
+    }
+    return x;
+}
+
+int isEmpty(struct Queue q)
+{
+    return q.front==q.rear;
+}
+
+void BFS(int G[][7], int start, int n)
+{
+    struct Queue q;
+    create(&q, 7);
+    int j,u;
+    int visited[7]={0};
+  
+    int i=start;
+      printf("%d ", i);
+    visited[i]=1;
+    enqueue(&q, i);
+    while(!isEmpty(q))
+    {
+        u =dequeue(&q);
+        for(j=0;j<n;j++)
+        {
+            if(G[u][j]==1 && visited[j]==0)
+            {
+            printf("%d ", j);
+            visited[j]=1;
+            enqueue(&q, j);
+            }
+        }
+    }
+    
+    
+}
+
+int main()
+{
+    int G[7][7]={ {0,0,0,0,0,0,0},
+                  {0,0,1,1,0,0,0},
+                  {0,1,0,0,1,0,0},
+                  {0,1,0,0,1,0,0},
+                  {0,0,1,1,0,1,1},
+                  {0,0,0,0,1,0,0},
+                  {0,0,0,0,1,0,0}};
+    BFS(G, 4, 7);
+    return 0;
+                  
+}
