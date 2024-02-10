@@ -1,0 +1,31 @@
+#include <stdio.h>
+
+void selectionSort(int A[], int n)
+{
+    int i,j,k,temp;
+    for(i=0;i<n-1;i++)
+    {
+        for(j=k=i; j<n; j++)
+        {
+            if(A[j]<A[k])
+            {
+                k=j;
+            }
+        }
+        temp=A[i];
+        A[i]=A[k];
+        A[k]=temp;
+    }
+    
+}
+
+void main()
+{
+    int A[]={2,5,3,78,34,20,81};
+    int i,n=7;
+    selectionSort(A,n);
+    for(i=0;i<n;i++)
+    {
+        printf("%d ",A[i]);
+    }
+}
