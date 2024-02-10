@@ -1,0 +1,45 @@
+#include <stdio.h>
+
+int partition(int A[], int l, int h)
+{
+    int i = l, j = h, temp, pivot = A[l];
+    do {
+        do { i++; } while (A[i] <= pivot);
+        do { j--; } while (A[j] > pivot);
+        if (i < j) {
+            temp = A[i];
+            A[i] = A[j];
+            A[j] = temp;
+        }
+    } while (i < j);
+
+   
+    temp = A[l];
+    A[l] = A[j];
+    A[j] = temp;
+
+    return j;
+}
+
+
+void quickSort(int A[], int l, int h)
+{
+    int x;
+    if(l<h)
+    {
+        x=partition(A,l,h);
+        quickSort(A,l,x);
+        quickSort(A,x+1,h);
+    }
+}
+
+void main()
+{
+    int A[]={2,5,3,78,34,20,81,1000};
+    int i,n=8;
+    quickSort(A,0,n-1);
+    for(i=0;i<n-1;i++)
+    {
+        printf("%d ",A[i]);
+    }
+}
