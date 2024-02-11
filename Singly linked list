@@ -1,0 +1,157 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node
+{
+    int data;
+    struct Node *next;
+}*first=NULL;
+
+//creating a linked list
+void create(int A[], int n)
+{
+    int i;
+    struct Node *last,*t;
+    first=(struct Node *)malloc(sizeof(struct Node));
+    first->data=A[0];
+    first->next=NULL;
+    last=first;
+    for(i=1;i<n;i++)
+    {
+        t=(struct Node *)malloc(sizeof(struct Node));
+        last->next=t;
+        t->data=A[i];
+        t->next=NULL;
+        last=t;
+    }
+}
+
+//displaying all the elements
+void display(struct Node *p)
+{
+    while(p!=NULL)
+    {
+        printf("%d-> ", p->data);
+        p=p->next;
+    }
+}
+
+//recursive display of elements
+void Rdisplay(struct Node *p)
+{
+    if(p!=NULL)
+    {
+       printf("%d->",p->data);
+       Rdisplay(p->next);
+    }
+}
+
+//recursive display of elements in reverse
+void Rreversedisplay(struct Node *p)
+{
+    if(p!=NULL)
+    {
+       Rreversedisplay(p->next);
+       printf("%d->",p->data);
+    }
+}
+
+//counting the number of elements
+int count(struct Node *p)
+{
+    int l=0;
+    while(p!=NULL)
+    {
+        l++;
+        p=p->next;
+    }
+    return l;
+}
+
+//recursive counting of elements
+int Rcount(struct Node *p)
+{
+    if(p!=NULL)
+        return Rcount(p->next)+1;
+    else
+    return 0;
+}
+
+//sum of elements
+int sum(struct Node *p)
+{
+    int s=0;
+    while(p!=NULL)
+    {
+        s+=p->data;
+        p=p->next;
+    }
+    return s;
+}
+
+//recursive sum of elements
+int Rsum(struct Node *p)
+{
+    if(p==NULL)
+    return 0;
+    else
+    return Rsum(p->next)+p->data;
+}
+
+//finding maximum element
+int Max(struct Node *p)
+{
+    int max=-32000;
+    while(p!=NULL)
+    {
+        if(p->data>max)
+        max=p->data;
+        p=p->next;
+    }
+    return max;
+}
+
+//recursive maximum element
+int Rmax(struct Node *p)
+{
+    int x;
+    if(p==NULL)
+    return -32000;
+    else
+    x=Rmax(p->next);
+    return x>p->data?x:p->data;
+}
+
+//searching a key
+struct Node* search(struct Node *p, int key)
+{
+    while(p!=NULL)
+    {
+        if(p->data==key)
+        return p;
+        p=p->next;
+    }
+}
+
+//recursive searching of key
+struct Node* Rsearch(struct Node *p, int key)
+{
+    if(p==NULL)
+    return NULL;
+    if(p->data==key)
+    return p;
+    else
+    Rsearch(p->next,key);
+}
+
+void main()
+{
+    int A[]={2,5,3,8,9};
+    create(A,5);
+    struct Node *temp;
+    temp=Rsearch(first,2);
+    if(temp)
+    printf("Key is found");
+    else
+    printf("Key is not found");
+}
