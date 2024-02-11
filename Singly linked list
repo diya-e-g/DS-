@@ -144,6 +144,29 @@ struct Node* Rsearch(struct Node *p, int key)
     Rsearch(p->next,key);
 }
 
+//inserting a node at a given index
+void insert(struct Node *p, int index, int key)
+{
+    int i;
+    struct Node *t;
+    if(index<0 || index>count(p))
+    return;
+    t=(struct Node*)malloc(sizeof(struct Node));
+    t->data=key;
+    if(index==0)
+    {
+        t->next=first;
+        first=t;
+    }
+    else
+    {
+        for(i=0;i<index-1;i++)
+        p=p->next;
+        t->next=p->next;
+        p->next=t;
+    }
+}
+
 void main()
 {
     int A[]={2,5,3,8,9};
